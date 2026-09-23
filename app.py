@@ -6,8 +6,14 @@ from openai import OpenAI
 def detect_intent(message):
     message = message.lower()
 
-    if any(word in message for word in ["shipping", "delivery", "delivered"]):
-        return "shipping"
+    if any(word in message for word in [
+    "shipping",
+    "delivery",
+    "delivered",
+    "package",
+    "parcel",
+    "shipment"
+]):
 
     if any(word in message for word in ["order", "order number", "purchase"]):
         return "order"
