@@ -33,6 +33,7 @@ def support_agent(message):
 
     intent = detect_intent(message)
 
+try:
     response = client.responses.create(
         model="gpt-4o-mini",
         instructions=(
@@ -48,6 +49,11 @@ def support_agent(message):
 
     return response.output_text
 
+except Exception:
+    return (
+        "I'm sorry, but I'm having trouble processing your request right now. "
+        "Please try again later."
+    )
 
 if __name__ == "__main__":
     print("Sticker Mule Support Agent")
