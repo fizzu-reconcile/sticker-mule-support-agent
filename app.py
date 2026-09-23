@@ -2,18 +2,18 @@
 import os
 from openai import OpenAI
 
-
 def detect_intent(message):
     message = message.lower()
 
     if any(word in message for word in [
-    "shipping",
-    "delivery",
-    "delivered",
-    "package",
-    "parcel",
-    "shipment"
-]):
+        "shipping",
+        "delivery",
+        "delivered",
+        "package",
+        "parcel",
+        "shipment"
+    ]):
+        return "shipping"
 
     if any(word in message for word in ["order", "order number", "purchase"]):
         return "order"
@@ -25,6 +25,7 @@ def detect_intent(message):
         return "pricing"
 
     return "general"
+
 
 
 def support_agent(message):
