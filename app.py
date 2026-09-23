@@ -1,41 +1,28 @@
-
 import os
+from openai import OpenAI
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def support_agent(message):
-    """Simple AI support-agent prototype for Sticker Mule."""
-
-    message = message.lower()
-
-    if "shipping" in message or "delivery" in message:
-        return (
-            "I can help with shipping and delivery questions. "
-            "Please provide your order details so the support team can check the latest status."
-        )
-
-    if "order" in message:
-        return (
-            "I can help with your order. "
-            "Please provide your order number and the details of your request."
-        )
-
-    if "refund" in message or "return" in message:
-        return (
-            "I can help with refund or return questions. "
-            "Please provide your order details so the request can be reviewed."
-        )
-
-    if "price" in message or "cost" in message:
-        return (
-            "I can help with product pricing. "
-            "Please tell me which Sticker Mule product you are interested in."
-        )
-
-    return (
-        "Thanks for contacting Sticker Mule Support. "
-        "Please provide a few more details about your question so I can help."
+    response = client.responses.create(
+        model="gpt-4o-mini",
+        instructions=(
+            "You are a helpful customer support agent for Sticker Mule. "
+            "Answer customer questions clearly and professionally. "
+            "Do not invent order information, shipping status, refunds, "
+            "or company policies. If specific account information is needed, "
+            "ask the customer to provide the relevant details."
+        ),
+        input=message
     )
+
+    return response.output_text
 
 
 if __name__ == "__main__":
     print("Sticker Mule Support Agent")
-    print(support_agent("I have a question about my shipping"))
+
+    test_message = "I have a question about my shipping"
+    answer = support_agent(test_message)
+
+    print(answer)
