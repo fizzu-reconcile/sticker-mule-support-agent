@@ -27,5 +27,7 @@ def test_pricing_intent():
 
 def test_general_intent():
     assert detect_intent("I have a question") == "general"
-    def test_shipping_is_case_insensitive():
+
+
+def test_shipping_is_case_insensitive():
     assert detect_intent("SHIPPING") == "shipping"
