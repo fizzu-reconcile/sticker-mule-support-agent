@@ -2,6 +2,7 @@
 import os
 from openai import OpenAI
 
+
 def detect_intent(message):
     message = message.lower()
 
@@ -25,14 +26,15 @@ def detect_intent(message):
         return "pricing"
 
     return "general"
+
+
 def support_agent(message):
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
     intent = detect_intent(message)
 
     try:
-      
-response = client.responses.create(
+        response = client.responses.create(
             model="gpt-4o-mini",
             instructions=(
                 "You are a helpful customer support agent for Sticker Mule. "
@@ -52,8 +54,6 @@ response = client.responses.create(
             "I'm sorry, but I'm having trouble processing your request right now. "
             "Please try again later."
         )
-
-
 
 
 if __name__ == "__main__":
